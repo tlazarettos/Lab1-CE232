@@ -11,22 +11,19 @@ main:
 
 li $v0, 5
 syscall
-move $t0, $v0
 move $t4, $v0
-li $t1, 2
+li $t0, 1
+#li $t1, 2
 
 beq $t4, 1, ispow
 
 loop:
-div $t0, $t1
-mflo $t2
-mfhi $t3
-move $t0, $t2
+sll $t0, $t0, 1 
 
-bnez $t3, isnotpow 
-bne $t2, 1, loop
+bgt $t0, $t4, isnotpow
+beq $t0, $t4, ispow 
+bne $t0, $t4, loop
  
-
 ispow:
 la $a0, string1
 li $v0, 4
@@ -60,4 +57,3 @@ syscall
 li $v0, 17
 li $a0, 0
 syscall
-
