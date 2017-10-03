@@ -5,8 +5,6 @@ string3: .asciiz "The max final union of ranges is ["
 string4: .asciiz ","
 string5: .asciiz "].\n"
  
-
-
 .text 
 .globl main
 
@@ -51,33 +49,27 @@ syscall
 
 move $t4, $v0
 
-
-bgt $t1, $t4, endif1
+bge $t4, $t1, endif5
+j if1
+endif5:
+bge $t2, $t3, endif3
+if1:
+subu $t5, $t2, $t1
+subu $t6, $t4, $t3
+ble $t6, $t5, endif4
 move $t1, $t3
-bge $t2, $t4, endif2
 move $t2, $t4
-ble $t1, $t3, endif3
-move $t1, $t3
+endif4:
 j loop
 endif3:
-j loop
+
+bge $t3, $t1, endif1
+move $t1, $t3
+endif1:
+bge $t2, $t4, endif2
+move $t2, $t4
 endif2:
 j loop
-endif1:
-
-blt $t2, $t3, endif4
-move $t2, $t4
-ble $t1, $t3, endif5
-move $t1, $t3
-bge $t2, $t4, endif6
-move $t2, $t4
-j loop
-endif6:
-j loop
-endif5:
-j loop
-endif4:
-
 
 end:
 
